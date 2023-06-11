@@ -1,0 +1,20 @@
+// Define a mixin for radial gradient
+@mixin radial-gradient($start-color, $middle-color, $end-color) {
+  background: radial-gradient(
+    ellipse at top,
+    $start-color,
+    $middle-color,
+    $end-color
+  );
+}
+
+// Override Bootstrap variables
+$body-bg: transparent;
+$white: #fff; // Optionally, set a custom white color
+
+@import "~bootstrap/scss/bootstrap.scss";
+
+// Additional custom styles
+body {
+  @include radial-gradient(#f1e466, rgba(252, 72, 1, 0.37), #55306b);
+}

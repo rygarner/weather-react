@@ -1,25 +1,58 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import "./custom.scss";
+import CurrentWeather from "./Current-Weather";
+import WeatherForecast from "./Weather-Forecast";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <section className="wrapper">
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars2"></div>
+        <div id="title"></div>
+      </section>
+      <div className="outer-border">
+        <div className="app-name">
+          <h1>Welcome!</h1>
+        </div>
+        <div className="search">
+          <form id="search-bar">
+            <input
+              type="text"
+              placeholder="Enter a City"
+              autoComplete="off"
+              autoFocus="on"
+              id="search-input"
+            />
+            <input type="submit" value="Search" className="submit-button" />
+            <input
+              type="submit"
+              value="Current Location"
+              className="location-button"
+              id="location-button"
+            />
+          </form>
+          <div className="degrees"></div>
+        </div>
+        <CurrentWeather />
+        <WeatherForecast />
+
+        <div>
+          <footer className="footer">
+            <p>
+              <a
+                href="https://github.com/rygarner/SheCodes-Project"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open-sourced
+              </a>
+              by Ry Garner
+            </p>
+          </footer>
+        </div>
+      </div>
+    </>
   );
 }
-
-export default App;
