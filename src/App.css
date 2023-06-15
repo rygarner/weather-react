@@ -23,13 +23,7 @@ a {
   position: relative;
   color: #ff4800;
 }
-h1 {
-  font-size: 36px;
-  padding: 10px;
-  margin: 0 auto;
-  transform: skewY(-10);
-  color: #ff4800;
-}
+
 form {
   padding: 20px;
 }
@@ -44,7 +38,13 @@ footer {
 units {
   padding-bottom: 20px;
 }
-
+.app-name h1 {
+  color: #ff4800;
+  font-size: 36px;
+  padding: 10px;
+  margin: 0 auto;
+  transform: skewY(-10);
+}
 .outer-border {
   text-align: center;
   border: none;

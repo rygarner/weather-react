@@ -40,16 +40,14 @@ export default function App() {
 
         <div>
           <footer className="footer">
-            <p>
-              <a
-                href="https://github.com/rygarner/SheCodes-Project"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Open-sourced
-              </a>
-              by Ry Garner
-            </p>
+            This Project was coded by Ry Garner and is{" "}
+            <a
+              href="https://github.com/rygarner/SheCodes-Project"
+              target="_blank"
+              rel="noreferrer"
+            >
+              open-sourced on GitHub
+            </a>
           </footer>
         </div>
       </div>
