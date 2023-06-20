@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import FormattedDate from "./FormattedDate";
+import FormattedTime from "./FormattedTime";
 import axios from "axios";
 
 export default function CurrentWeather() {
@@ -7,7 +9,8 @@ export default function CurrentWeather() {
     console.log(response.data);
     setWeatherData({
       ready: true,
-      date: "Tuesday, June 20, 2023",
+      date: new Date(response.data.dt * 1000),
+      time: new Date(response.data.dt * 1000),
       feelsLike: response.data.main.feels_like,
       humidity: response.data.main.humidity,
       temperature: response.data.main.temp,
@@ -25,7 +28,10 @@ export default function CurrentWeather() {
         <div className="row align-items-start">
           <div className="col">
             <p className="info-left">
-              <span id="time"></span> <br />
+              <span id="time">
+                <FormattedTime date={weatherData.date} />
+              </span>{" "}
+              <br />
               <span className="current-temp" id="current-temp">
                 {Math.round(weatherData.temperature)}°
               </span>
@@ -59,7 +65,10 @@ export default function CurrentWeather() {
           </div>
           <div className="col">
             <p className="info-center">
-              <span id="current-date">{weatherData.date}</span> <br />
+              <span id="current-date">
+                <FormattedDate date={weatherData.date} />
+              </span>{" "}
+              <br />
               <img
                 src={weatherData.iconUrl}
                 className="weather-emoji"
