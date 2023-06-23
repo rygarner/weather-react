@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import FormattedDate from "./FormattedDate";
-import FormattedTime from "./FormattedTime";
+import WeatherInfo from "./WeatherInfo";
 import axios from "axios";
 
-export default function CurrentWeather() {
+export default function CurrentWeather(props) {
   const [weatherData, setWeatherData] = useState({ ready: false });
+  const [city, setCity] = useState(props.defaultCity);
   function handelResponse(response) {
     console.log(response.data);
     setWeatherData({
@@ -19,85 +19,55 @@ export default function CurrentWeather() {
       wind: response.data.wind.speed,
       city: response.data.name,
       description: response.data.weather[0].description,
-      iconUrl: "https://openweathermap.org/img/wn/10d@2x.png",
+      iconUrl: `https://openweathermap.org/img/wn/${response.data.weather[0].icon}`,
     });
   }
+
+  function search() {
+    const apiKey = "67628a8e6b77943e6a0a6b36c4e89eec";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
+    axios.get(apiUrl).then(handelResponse);
+  }
+  function handleSubmit(event) {
+    event.preventDefault();
+    search();
+  }
+  function handleCityChange(event) {
+    setCity(event.target.value);
+  }
+
   if (weatherData.ready) {
     return (
-      <div className="current-weather">
-        <div className="row align-items-start">
-          <div className="col">
-            <p className="info-left">
-              <span id="time">
-                <FormattedTime date={weatherData.date} />
-              </span>{" "}
-              <br />
-              <span className="current-temp" id="current-temp">
-                {Math.round(weatherData.temperature)}°
-              </span>
-              <span className="units">
-                <a href="/" className="current-celsius" id="current-celsius">
-                  C
-                </a>{" "}
-                |
-                <a
-                  href="/"
-                  className="current-fahrenheit"
-                  id="current-fahrenheit"
-                >
-                  F
-                </a>
-              </span>
-              <br />
-              <span className="current-city" id="current-city">
-                {weatherData.city}
-              </span>
-              <br />
-              <span className="max-temp" id="max-temp">
-                {Math.round(weatherData.max)}°
-              </span>
-              /
-              <span className="min-temp" id="min-temp">
-                {Math.round(weatherData.min)}°
-              </span>
-              <br />
-            </p>
-          </div>
-          <div className="col">
-            <p className="info-center">
-              <span id="current-date">
-                <FormattedDate date={weatherData.date} />
-              </span>{" "}
-              <br />
-              <img
-                src={weatherData.iconUrl}
-                className="weather-emoji"
-                id="weather-icon"
-              />
-            </p>
-          </div>
-          <div className="col">
-            <p className="info-right">
-              Humidity: <span id="humidity">{weatherData.humidity}%</span>
-              <br />
-              Feels Like:{" "}
-              <span id="feels-like">{Math.round(weatherData.feelsLike)}°</span>
-              <br />
-              Wind:{" "}
-              <span id="windspeed">{Math.round(weatherData.wind)} mph</span>
-              <br />
-              <span id="description">{weatherData.description}</span>
-            </p>
-          </div>
+      <div>
+        <div className="app-name">
+          <h1>Welcome!</h1>
+        </div>
+        <div className="search">
+          <form onSubmit={handleSubmit} id="search-bar">
+            <input
+              type="text"
+              placeholder="Enter a City"
+              autoComplete="off"
+              autoFocus="on"
+              id="search-input"
+              onChange={handleCityChange}
+            />
+            <input type="submit" value="Search" className="submit-button" />
+            <input
+              type="submit"
+              value="Current Location"
+              className="location-button"
+              id="location-button"
+            />
+          </form>
+        </div>
+        <div>
+          <WeatherInfo data={weatherData} />
         </div>
       </div>
     );
   } else {
-    const apiKey = "67628a8e6b77943e6a0a6b36c4e89eec";
-    let city = "Silver Spring";
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
-    axios.get(apiUrl).then(handelResponse);
-
+    search();
     return "Loading...";
   }
 }

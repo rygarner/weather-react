@@ -13,29 +13,7 @@ export default function App() {
         <div id="title"></div>
       </section>
       <div className="outer-border">
-        <div className="app-name">
-          <h1>Welcome!</h1>
-        </div>
-        <div className="search">
-          <form id="search-bar">
-            <input
-              type="text"
-              placeholder="Enter a City"
-              autoComplete="off"
-              autoFocus="on"
-              id="search-input"
-            />
-            <input type="submit" value="Search" className="submit-button" />
-            <input
-              type="submit"
-              value="Current Location"
-              className="location-button"
-              id="location-button"
-            />
-          </form>
-          <div className="degrees"></div>
-        </div>
-        <CurrentWeather />
+        <CurrentWeather defaultCity="New York" />
         <WeatherForecast />
 
         <div>
