@@ -33,6 +33,7 @@ export default function CurrentWeather(props) {
     search();
   }
   function handleCityChange(event) {
+    event.preventDefault();
     setCity(event.target.value);
   }
 
