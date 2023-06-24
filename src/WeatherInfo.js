@@ -40,6 +40,7 @@ export default function WeatherInfo(props) {
                 src={props.data.iconUrl}
                 className="weather-emoji"
                 id="weather-icon"
+                alt=""
               />
             </p>
           </div>
