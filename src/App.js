@@ -14,7 +14,6 @@ export default function App() {
       </section>
       <div className="outer-border">
         <CurrentWeather defaultCity="New York" />
-        <WeatherForecast />
 
         <div>
           <footer className="footer">
