@@ -1,7 +1,6 @@
 import "./App.css";
 import "./custom.scss";
 import CurrentWeather from "./Current-Weather";
-import WeatherForecast from "./Weather-Forecast";
 
 export default function App() {
   return (
