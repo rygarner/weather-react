@@ -16,7 +16,7 @@ export default function App() {
 
         <div>
           <footer className="footer">
-            This Project was coded by Ry Garner and is{" "}
+            This project was created by Ry Garner and is{" "}
             <a
               href="https://github.com/rygarner/SheCodes-Project"
               target="_blank"

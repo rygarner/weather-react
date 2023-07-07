@@ -81,12 +81,15 @@ span #time {
 }
 
 .search input[type="text"],
-.search input[type="submit"] {
+.search input[type="submit"],
+.location-button {
   background-color: rgba(255, 255, 255, 0.281);
   border: none;
   box-shadow: 0px 0px 10px 0px rgba(102, 18, 238, 0.863);
+  color: #ff4800;
 }
-.search-bar {
+
+.info-text {
   color: #ff4800;
 }
 
@@ -101,6 +104,20 @@ span #time {
   opacity: 0;
   transform: translateY(50px);
   animation: slide-up 0.5s ease-in-out 0.5s forwards;
+}
+
+@media screen and (max-width: 768px) {
+  .outer-border {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .outer-border {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
 }
 
 @keyframes slide-up {

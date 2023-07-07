@@ -6,8 +6,8 @@ import Axios from "axios";
 export default function CurrentWeather(props) {
   const [weatherData, setWeatherData] = useState({ ready: false });
   const [city, setCity] = useState(props.defaultCity);
-  function handelResponse(response) {
-    console.log(response.data);
+
+  function handleResponse(response) {
     setWeatherData({
       ready: true,
       coordinates: response.data.coord,
@@ -28,50 +28,75 @@ export default function CurrentWeather(props) {
   function search() {
     const apiKey = "67628a8e6b77943e6a0a6b36c4e89eec";
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
-    Axios.get(apiUrl).then(handelResponse);
+    Axios.get(apiUrl).then(handleResponse);
   }
+
   function handleSubmit(event) {
     event.preventDefault();
     search();
   }
+
   function handleCityChange(event) {
     event.preventDefault();
     setCity(event.target.value);
   }
 
-  if (weatherData.ready) {
-    return (
-      <div>
-        <div className="app-name">
-          <h1>Welcome!</h1>
-        </div>
-        <div className="search">
-          <form onSubmit={handleSubmit} id="search-bar">
-            <input
-              type="text"
-              placeholder="Enter a City"
-              autoComplete="off"
-              autoFocus="on"
-              id="search-input"
-              onChange={handleCityChange}
-            />
-            <input type="submit" value="Search" className="submit-button" />
-            <input
-              type="submit"
-              value="Current Location"
-              className="location-button"
-              id="location-button"
-            />
-          </form>
-        </div>
+  function getCurrentPosition() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        currentPosition,
+        handleLocationError
+      );
+    } else {
+      console.log("Geolocation not supported");
+    }
+  }
+
+  function currentPosition(position) {
+    let apiKey = "67628a8e6b77943e6a0a6b36c4e89eec";
+    let lat = position.coords.latitude;
+    let lon = position.coords.longitude;
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`;
+    Axios.get(apiUrl).then(handleResponse);
+  }
+
+  function handleLocationError(error) {
+    console.log("Error occurred while retrieving location:", error);
+  }
+
+  return (
+    <div>
+      <div className="app-name">
+        <h1>Welcome!</h1>
+      </div>
+      <div className="search">
+        <form onSubmit={handleSubmit} id="search-bar">
+          <input
+            type="text"
+            placeholder="Enter a City"
+            autoComplete="off"
+            autoFocus="on"
+            id="search-input"
+            onChange={handleCityChange}
+          />
+          <input type="submit" value="Search" className="submit-button" />
+          <button
+            className="location-button"
+            id="location-button"
+            onClick={getCurrentPosition}
+          >
+            Current Location
+          </button>
+        </form>
+      </div>
+      {weatherData.ready ? (
         <div>
           <WeatherInfo data={weatherData} />
           <WeatherForecast coordinates={weatherData.coordinates} />
         </div>
-      </div>
-    );
-  } else {
-    search();
-    return "Loading...";
-  }
+      ) : (
+        "Loading..."
+      )}
+    </div>
+  );
 }

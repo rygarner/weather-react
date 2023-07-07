@@ -28,9 +28,9 @@ export default function WeatherUnits(props) {
           >
             C
           </a>{" "}
-          |
+          |{" "}
           <a
-            href="/"
+            href="/ "
             onClick={convertToFahrenheit}
             className="current-fahrenheit"
             id="current-fahrenheit"
@@ -51,16 +51,16 @@ export default function WeatherUnits(props) {
           <a
             href="/"
             onClick={convertToCelsius}
-            className="current-celsius"
+            className="current-celsius units"
             id="current-celsius"
           >
             C
           </a>{" "}
-          |
+          |{" "}
           <a
             href="/"
             onClick={convertToFahrenheit}
-            className="current-fahrenheit"
+            className="current-fahrenheit units"
             id="current-fahrenheit"
           >
             F
