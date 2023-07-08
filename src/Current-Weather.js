@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import WeatherInfo from "./WeatherInfo";
 import WeatherForecast from "./Weather-Forecast";
 import Axios from "axios";
@@ -6,10 +6,6 @@ import Axios from "axios";
 export default function CurrentWeather(props) {
   const [weatherData, setWeatherData] = useState({ ready: false });
   const [city, setCity] = useState(props.defaultCity);
-
-  useEffect(() => {
-    search();
-  }, []); // Run the search on initial render
 
   function handleResponse(response) {
     setWeatherData({
@@ -34,6 +30,8 @@ export default function CurrentWeather(props) {
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
     Axios.get(apiUrl).then(handleResponse);
   }
+
+  search();
 
   function handleSubmit(event) {
     event.preventDefault();
